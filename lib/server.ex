@@ -2,16 +2,16 @@ defmodule Chat.Server do
   use GenServer
 
   def start_link do
-    GenServer.start_link(__MODULE__,[])
+    GenServer.start_link(__MODULE__,[],name: :chat_room)
 
   end
 
-  def get_msgs(pid) do
-    GenServer.call(pid,:get_msgs)
+  def get_msgs do
+    GenServer.call(:chat_room,:get_msgs)
   end
 
-  def add_msg(pid,msg) do
-    GenServer.cast(pid,{:add_msg, msg})
+  def add_msg(msg) do
+    GenServer.cast(:chat_room,{:add_msg, msg})
   end
 
   def init(msgs) do
